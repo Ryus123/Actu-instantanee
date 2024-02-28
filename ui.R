@@ -7,27 +7,78 @@
 #    http://shiny.rstudio.com/
 #
 
-library(shiny)
+pacman :: p_load(shiny, shinythemes,colourpicker, DT, rAmCharts, leaflet)
 
 # Define UI for application that draws a histogram
-fluidPage(
-
-    # Application title
-    titlePanel("Old Faithful Geyser Data"),
-
-    # Sidebar with a slider input for number of bins
-    sidebarLayout(
-        sidebarPanel(
-            sliderInput("bins",
-                        "Number of bins:",
-                        min = 1,
-                        max = 50,
-                        value = 30)
-        ),
-
-        # Show a plot of the generated distribution
-        mainPanel(
-            plotOutput("distPlot")
-        )
-    )
-)
+fluidPage(theme = shinytheme("superhero"),
+  
+  # Application title
+  titlePanel("Carte instantanée de l'actualité"), 
+  
+  
+  navbarPage(
+    
+    #Titre navbar et logo rennes metropole
+    title = div( tags$a(img(src = "RENNES_logo_noir.png", 
+                            width = '96px' ),
+                
+                  href="https://metropole.rennes.fr/")
+                
+                ),#Fermeture du div()
+    
+    
+    
+    #Onglet : Actualité générale
+    tabPanel( "Actualité générale ", 
+             h3("Actualités du jour et en direct"),
+             fluidRow(
+               #siderebarPanel
+               column(width = 4, 
+                      wellPanel(
+                        
+                        #Rechercher un sujet en particulier
+                        textInput(input="sujet", 
+                                  label = "Recherche : ", 
+                                  value = "Sujet"),
+                        
+                        #Choix du quartier
+                        radioButtons(inputId = "quartier", 
+                                     choices = c("Sainte-Anne", "République", "Gare", "Cesson"), 
+                                     label = "Choisissez un quartier"),
+                        #Ajout du boutton GO
+                        actionButton("go_graph", "Appliquer le filtre"))),
+               
+               
+               #mainPanel
+               column(width = 8,
+                      leafletOutput("test"))
+                        
+               )
+             
+             ),
+    
+    
+    
+    
+    #Onglet : Economie
+    tabPanel("Economie", 
+             h3("Résumé statistique de la table"),
+             #Ajout de la sortie du summary
+             plotOutput("boxPlot")),
+    
+    
+    #Onglet :Faits divers
+    tabPanel("Faits divers", 
+             h3("Présentation de la table")),
+    
+    
+    #Onglet : Société
+    tabPanel("Société", 
+             h3("Présentation de la table"))
+    
+               
+             
+    
+  )# Ferme navbarPage
+  
+)#Ferme fluidPage
