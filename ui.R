@@ -45,13 +45,22 @@ fluidPage(theme = shinytheme("superhero"),
                         radioButtons(inputId = "quartier", 
                                      choices = c("Sainte-Anne", "République", "Gare", "Cesson"), 
                                      label = "Choisissez un quartier"),
+                        
+                        #Affiche les 5er article
+                        h6("titre: -------"),
+                        h6("date : ------ "),
+                        h6("lien: -------"),
+                        h6("date : ------ "),
+                        h6("titre: -------"),
+                        h6("lien : ------ "),
+                        
                         #Ajout du boutton GO
                         actionButton("go_graph", "Appliquer le filtre"))),
                
                
                #mainPanel
                column(width = 8,
-                      leafletOutput("test"))
+                      leafletOutput("test", height=500))
                         
                )
              

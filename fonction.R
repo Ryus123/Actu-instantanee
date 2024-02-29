@@ -3,7 +3,7 @@
 # 
 # 
 
-pacman :: p_load(shiny,colourpicker, DT, rAmCharts, leaflet)
+pacman :: p_load(shiny,colourpicker, DT, rAmCharts, leaflet, leaflet.extras)
 
 
 fonction_test = function(){
@@ -20,7 +20,8 @@ carte_rennes <- function(){
   
   Rennes <- c( -1.67778,48.1173)
   leaflet() |> addTiles() |>
-  setView(lng = Rennes[1], lat = Rennes[2],zoom=12.5)
+  setView(lng = Rennes[1], lat = Rennes[2],zoom=14) |>
+    addFullscreenControl()
   
 }
 
